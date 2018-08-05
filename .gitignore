@@ -6,6 +6,10 @@ interface/dist-server
 interface/tmp
 interface/out-tsc
 
+# Remove ethPM package contents
+installed_contracts/*
+
+
 # VS live sharing
 .vs/*
 

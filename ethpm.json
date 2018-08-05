@@ -1,0 +1,17 @@
+{
+  "package_name": "decentra-mart",
+  "version": "0.0.1",
+  "description": "Simple decentralised marketplace",
+  "authors": [
+    "Alex Scott <alsco77@pm.me>"
+  ],
+  "keywords": [
+    "ethereum",
+    "marketplace"
+  ],
+  "dependencies": {
+    "simple-multisig": "0.0.4",
+    "zeppelin": "1.3.0"
+  },
+  "license": "MIT"
+}
