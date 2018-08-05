@@ -1,0 +1,6 @@
+Addresses of contracts deployed on the rinkeby testnet:
+
+- xxxx: xxxx
+- xxxx: xxxx
+- xxxx: xxxx
+- xxxx: xxxx
