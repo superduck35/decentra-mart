@@ -1,0 +1,26 @@
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-around center">
+  <!-- <button mat-icon-button>
+      <mat-icon fontSet="fas" fontIcon="fa-bars"></mat-icon>
+    </button> -->
+  Decentra Mart
+  <div fxFlex></div>
+  <div fxLayout="row" fxLayoutAlign="space-around center" *ngIf="walletConnected && user">
+    <button type="button" [routerLink]="['/admin']" [disabled]="!user.isAdmin">
+      Admin area
+    </button>
+    <button type="button" [routerLink]="['/manage-stores']" [disabled]="!user.isStoreOwner">
+      Manage stores
+    </button>
+    <img *ngIf="user.avatar" src="{{user.avatar}}" class="avatar" alt="avatar" title="avatar">
+  </div>
+  <div *ngIf="walletConnected && !user" class="error-text">
+    <span>Wrong network</span>
+
+    <img *ngIf="user.avatar" src="../../assets/q_mark.png" class="avatar" alt="avatar" title="avatar">
+  </div>
+  <div *ngIf="!walletConnected" class="error-text">
+    <span>{{web3Status}}</span>
+
+    <img *ngIf="user.avatar" src="../../assets/q_mark.png" class="avatar" alt="avatar" title="avatar">
+  </div>
+</mat-toolbar>

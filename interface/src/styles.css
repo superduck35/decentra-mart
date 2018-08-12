@@ -6,3 +6,13 @@ body {
   width: 100%;
   margin: 0px;
 }
+
+.avatar {
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+}
+
+.pointer {
+  cursor: pointer;
+}
