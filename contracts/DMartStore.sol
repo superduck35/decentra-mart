@@ -40,18 +40,7 @@ contract DMartStore is ProxyData, Ownable {
         fillAmount = newAmount;
         emit DrankKombucha(amountToDrink, newAmount);
         // this mess of hashes just here to pad out the bytecode
-        return keccak256(keccak256(keccak256(keccak256(keccak256(
-            keccak256(keccak256(keccak256(keccak256(keccak256(
-            keccak256(keccak256(keccak256(keccak256(keccak256(
-            keccak256(keccak256(keccak256(keccak256(keccak256(
-            keccak256(keccak256(keccak256(keccak256(keccak256(
-            keccak256(keccak256(keccak256(keccak256(keccak256(
-            keccak256(keccak256(keccak256(keccak256(keccak256(
-            keccak256(keccak256(keccak256(keccak256(keccak256(
-            keccak256(keccak256(keccak256(keccak256(keccak256(
-            keccak256(keccak256(keccak256(keccak256(keccak256(
-                amountToDrink
-            ))))))))))))))))))))))))))))))))))))))))))))))))));
+        return keccak256(amountToDrink);
     }
 
     function getName() public
