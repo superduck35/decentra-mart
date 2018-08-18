@@ -7,6 +7,12 @@ import "./access/RBAC.sol";
 
 contract DMartAdmin is RBAC {
     
+    address[] public storeOwners;
+    mapping(address => uint) indexOfStoreOwners;
+
+    event StoreOwnerAdded(address indexed storeOwner);
+    event StoreOwnerRemoved(address indexed storeOwner);
+
     string public constant ROLE_ADMIN = "Admin";
     string public constant ROLE_STORE_OWNER = "Store Owner";
 
@@ -20,6 +26,9 @@ contract DMartAdmin is RBAC {
         require(_storeOwner != address(0));
         require(!hasRole(_storeOwner, ROLE_STORE_OWNER));
 
+        storeOwners.push(_storeOwner);
+        indexOfStoreOwners[_storeOwner] = storeOwners.length - 1;
+
         addRole(_storeOwner, ROLE_STORE_OWNER);
         return(true);
     } 
@@ -30,7 +39,21 @@ contract DMartAdmin is RBAC {
         require(_storeOwner != address(0));
         require(hasRole(_storeOwner, ROLE_STORE_OWNER));
 
+        removeStoreOwnerFromArray(_storeOwner);
         removeRole(_storeOwner, ROLE_STORE_OWNER);
         return(true);
-    } 
+    }
+
+    function removeStoreOwnerFromArray(address _storeOwnerToDelete) private 
+    onlyRole(ROLE_ADMIN) {
+        uint index = indexOfStoreOwners[_storeOwnerToDelete];
+        if (index < 0) return;
+
+        if (storeOwners.length > 1) {
+            storeOwners[index] = storeOwners[storeOwners.length-1];
+            delete(storeOwners[storeOwners.length-1]); // recover gas
+        }
+
+        storeOwners.length--;
+    }
 }
