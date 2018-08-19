@@ -55,13 +55,13 @@ contract DMartStoreManagement is Pausable {
       */
     function addStore(string _storeName) public
     whenNotPaused
-    returns(address) { 
+    returns(bool success) { 
         require(admin.hasRole(msg.sender, ROLE_STORE_OWNER));
         
         DMartStore store = storeFactory.createDMartStore(msg.sender, _storeName);
         storesByOwner[msg.sender].push(store);
         emit StoreAdded(msg.sender, store, _storeName);
-        return store;
+        return true;
     }
 
    /** 
@@ -83,6 +83,4 @@ contract DMartStoreManagement is Pausable {
         }
         return true;
     }
-
-
 }

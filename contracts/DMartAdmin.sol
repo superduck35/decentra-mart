@@ -94,16 +94,16 @@ contract DMartAdmin is RBAC, Pausable {
       * @dev Helper method to remove store owner from data access
       * @param _storeOwner Address of store owner
       */
-    function removeStoreOwnerFromArray(address _storeOwnerToDelete) private 
+    function removeStoreOwnerFromArray(address _storeOwner) private 
     whenNotPaused
     onlyRole(ROLE_ADMIN) {
-        uint index = indexOfStoreOwners[_storeOwnerToDelete];
+        uint index = indexOfStoreOwners[_storeOwner];
         if (index < 0) return;
 
         if (storeOwners.length > 1) {
             storeOwners[index] = storeOwners[storeOwners.length-1];
             delete(storeOwners[storeOwners.length-1]); // recover gas
-            delete(indexOfStoreOwners[_storeOwnerToDelete]);
+            delete(indexOfStoreOwners[_storeOwner]);
         }
 
         storeOwners.length--;

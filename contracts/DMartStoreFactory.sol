@@ -32,5 +32,6 @@ contract DMartStoreFactory {
     {
         dMartStore = DMartStore(new Proxy(masterCopy));
         dMartStore.init(_owner, _name);
+        return dMartStore;
     }
 }
