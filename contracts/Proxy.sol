@@ -1,5 +1,12 @@
 pragma solidity ^0.4.23;
 
+/**
+ * @title Simple Proxy
+ * @author Alan Lu - Gnosis
+ * Link - https://blog.gnosis.pm/solidity-delegateproxy-contracts-e09957d0f201
+ * @dev Acts as proxy for a contract in order to 
+ * allow for upgradability and factory contract deployment
+ */
 contract ProxyData {
     address internal proxied;
 }

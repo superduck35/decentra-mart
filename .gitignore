@@ -9,6 +9,7 @@ interface/out-tsc
 # Remove ethPM package contents
 installed_contracts/*
 build/*
+bin/*
 
 # VS live sharing
 .vs/*
