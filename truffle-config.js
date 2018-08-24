@@ -14,11 +14,24 @@
 
 module.exports = {
   networks: {
+    development: {
+      host: 'localhost',
+      port: 8545,
+      gas: 6130000,
+      network_id: '*'
+    },
+
     ganache: {
       host: 'localhost',
       port: 8545,
-      gas: 6230000,
+      gas: 6130000,
       network_id: '*'
+    }
+  },
+  solc: {
+    optimizer: {
+      enabled: true,
+      runs: 200
     }
   }
 };

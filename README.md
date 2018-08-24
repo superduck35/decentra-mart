@@ -20,16 +20,33 @@ Shoppers in DecentraMart can interact with the individual `DMartStore`'s which c
  - `ganache-cli -p 8545` -> Run ganache instance on port 8545
  - `truffle migrate --network ganache` (may need node > 9)
 
-## Run local dev server
- - `cd interface`
- - `npm install`
- - Configure environment to your chosen network (update contract addresses)
- - `npm run start`
- - visit http://localhost:4200
 
  ## Testing
  - Navigate to project root
  - `truffle install` -> Install EthPM dependencies
  - `truffle compile`
+ - ensure local network running `ganache-cli`
  - `truffle test`
+
+
+## Run local dev server
+ - Install node && npm on your machine
+ - `cd interface`
+ - `npm install`
+ - Configure `environment.ts` to your chosen network & update contract addresses.. or use default (rinkeby)
+ - `npm run start`
+ - visit http://localhost:4200
+
+
+
+## Interacting with application
+
+### Displaying your current metamask account
+ - < Image of the top right connection >
+
+### Sign transactions using metamask
+ - < Screenshots of signing the transactions to buy item >
+
+### Seeing reflections to the contract state
+ - < Screenshot of stock updating >
 

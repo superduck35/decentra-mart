@@ -11,7 +11,7 @@ import "../installed_contracts/zeppelin/contracts/lifecycle/Pausable.sol";
 contract DMartAdmin is RBAC, Pausable {
     
     address[] public storeOwners;
-    mapping(address => uint) indexOfStoreOwners;
+    mapping(address => uint) public indexOfStoreOwners;
 
     string private constant ROLE_ADMIN = "Admin";
     string private constant ROLE_STORE_OWNER = "Store Owner";

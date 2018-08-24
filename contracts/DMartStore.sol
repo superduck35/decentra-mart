@@ -169,12 +169,12 @@ contract DMartStore is ProxyData, Ownable {
     view
     storeIsOpen
     returns(uint[]) {
-        uint[] memory products = new uint[](numberOfProducts);
+        uint[] memory productIds = new uint[](numberOfProducts);
         for(uint i = 0; i < numberOfProducts; i++){
-            products[i] = i;
+            productIds[i] = i;
         }
         return (
-            products
+            productIds
         );
     }
 
