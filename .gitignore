@@ -16,11 +16,10 @@ bin/*
 # VS live sharing
 .vs/*
 
-# Hide environment secrets for firebase
-interface/src/environments/*.ts
 
 # dependencies
 */node_modules
+node_modules*
 
 # IDEs and editors
 /.idea

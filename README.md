@@ -33,13 +33,16 @@ Shoppers in DecentraMart can interact with the individual `DMartStore`'s which c
  - Install node && npm on your machine
  - `cd interface`
  - `npm install`
- - Configure `environment.ts` to your chosen network & update contract addresses.. or use default (rinkeby)
+ - Configure `environment.ts` to your chosen network & update contract addresses.. or use default (Rinkeby)
  - `npm run start`
  - visit http://localhost:4200
 
 
 
 ## Interacting with application
+
+ - Load up the app as in `run local dev server` above (I recommend you stick with the default environment on Rinkeby)
+ - To connect to Web3, your MetaMask must be connected to the correct network (as in the one in environment.ts... Rinkeby)
 
 ### Displaying your current metamask account
  - < Image of the top right connection >

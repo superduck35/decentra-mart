@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
 import { Web3ServiceModule } from 'web3-service-lib';
+import { environment } from '../environments/environment';
 import { AdminComponent } from './admin/admin.component';
 import { AppComponent } from './app.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
@@ -41,7 +42,9 @@ import { AuthGuard } from './utils/auth.guard';
         data: { requiresAdmin: true }
       }
     ]),
-    Web3ServiceModule.forRoot()
+    Web3ServiceModule.forRoot({
+      netType: environment.targetNetwork
+    })
   ],
   providers: [
     DMartEthService

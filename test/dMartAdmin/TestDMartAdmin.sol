@@ -45,7 +45,6 @@ contract TestDMartAdmin {
         Assert.equal(admin.storeOwners(indexOfOwner), address_1, "Store owner correctly stored in data structure");
     }
 
-
     function testStoreOwnerIsRemovedCorrectly() public {
 
         admin.removeStoreOwner(address_1);

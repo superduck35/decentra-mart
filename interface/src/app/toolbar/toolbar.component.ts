@@ -16,16 +16,15 @@ export class ToolbarComponent implements AfterViewInit {
   user: User;
 
   walletConnected = false;
-  isCorrectNetwork = false;
 
   constructor(private ethService: DMartEthService) { }
 
   ngAfterViewInit() {
     this.ethService.web3Status$.subscribe((status: Web3LoadingStatus) => {
+      console.log(status);
       this.web3Status = status;
       if (status === Web3LoadingStatus.complete) {
         this.walletConnected = true;
-        this.isCorrectNetwork = this.ethService.isCorrectNetwork;
         this.ethService.user$.subscribe((user: User) => {
           this.user = user;
         });
