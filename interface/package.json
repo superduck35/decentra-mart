@@ -29,7 +29,7 @@
     "ethereum-blockies-png": "^0.1.3",
     "hammerjs": "^2.0.8",
     "rxjs": "^6.0.0",
-    "web3-service-lib": "0.0.2",
+    "web3-service-lib": "0.0.3",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

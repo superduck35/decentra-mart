@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 
 import { EthService, NetworkType, WalletType, Web3LoadingStatus } from 'web3-service-lib';
 import { environment } from '../../environments/environment';
-import { DMartAdmin } from '../contracts';
+import { adminAbi, managementAbi, storeAbi } from '../contracts';
 
 declare var require;
 const blockies = require('ethereum-blockies-png');
@@ -15,12 +15,14 @@ export class User {
   isAdmin: boolean;
   isStoreOwner: boolean;
 }
+
 @Injectable({
   providedIn: 'root'
 })
 export class DMartEthService extends EthService {
 
   adminContract: any;
+  storeManagementContract: any;
 
   ADMIN_ROLE = 'Admin';
   STORE_OWNER_ROLE = 'Store Owner';
@@ -29,11 +31,12 @@ export class DMartEthService extends EthService {
   public user$ = this.user.asObservable();
 
   constructor(http: Http) {
-    super(http);
-    this.adminContract = this.createContractInstance(DMartAdmin.abi, environment.dMartAdminAddress);
+    super({ netType: environment.targetNetwork }, http);
+    this.adminContract = this.createContractInstance(adminAbi, environment.contracts.admin);
+    this.storeManagementContract = this.createContractInstance(managementAbi, environment.contracts.storeManagement);
 
     this.account$.subscribe(async (acc: string) => {
-      if (acc && this.isCorrectNetwork) {
+      if (acc) {
         const isAdmin = await this.hasAdminRole(acc);
         const isStoreOwner = await this.hasStoreOwnerRole(acc);
         this.user.next({
@@ -46,10 +49,6 @@ export class DMartEthService extends EthService {
         this.user.next(null);
       }
     });
-  }
-
-  get isCorrectNetwork(): boolean {
-    return this.netType === environment.targetNetwork;
   }
 
   hasAdminRole(address: string): Promise<boolean> {

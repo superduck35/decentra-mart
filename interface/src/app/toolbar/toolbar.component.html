@@ -1,16 +1,23 @@
 <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-around center">
   Decentra Mart
   <div fxFlex></div>
-  <div *ngIf="walletConnected && user" fxLayout="row" fxLayoutAlign="space-around center">
-    <button mat-button [routerLink]="['/admin']" [disabled]="!user.isAdmin">
+  <div fxLayout="row" fxLayoutAlign="space-around center">
+    <button mat-button [routerLink]="['/admin']" [disabled]="!user?.isAdmin">
       Admin area
     </button>
-    <a [routerLink]="['/admin']">go</a>
-    <button mat-button [routerLink]="['/manage-stores']" [disabled]="!user.isStoreOwner">
+    <button mat-button [routerLink]="['/manage-stores']" [disabled]="!user?.isStoreOwner">
       Manage stores
     </button>
-    <img *ngIf="user.avatar" src="{{user.avatar}}" class="avatar" alt="avatar" title="avatar">
+    <div *ngIf="walletConnected && user">
+      {{user.address}} -
+      <img *ngIf="user.avatar" src="{{user.avatar}}" class="avatar" alt="avatar" title="avatar">
+    </div>
+    <div *ngIf="!walletConnected || !user">
+      {{web3Status}}
+    </div>
   </div>
+
+
   <!-- <div *ngIf="walletConnected && !user" class="error-text" fxLayout="row" fxLayoutAlign="space-around center">
     <span>Wrong network</span>
 
