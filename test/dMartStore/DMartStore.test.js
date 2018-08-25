@@ -1,6 +1,7 @@
 // const { assertRevert } = require('../helpers/assertRevert');
 // const { ether } = require('../helpers/ether');
 // const { ethGetBalance } = require('../helpers/web3');
+const DMartStore = artifacts.require("DMartStore");
 
 // const BigNumber = web3.BigNumber;
 
@@ -8,6 +9,17 @@
 //   .use(require('chai-bignumber')(BigNumber))
 //   .should();
 
+contract("DMartStore", accounts => {
+  const firstAccount = accounts[0];
+
+  describe('basic store creation', function () {
+    it("should set the correct owner", async () => {
+      let store = await DMartStore.deployed();
+      assert.equal(await store.owner(), firstAccount);
+
+    });
+  });
+})
 // const Crowdsale = artifacts.require('Crowdsale');
 // const SimpleToken = artifacts.require('SimpleToken');
 

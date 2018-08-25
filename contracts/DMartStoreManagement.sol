@@ -32,6 +32,7 @@ contract DMartStoreManagement is Pausable {
       * @param _storeFactory Address of store factory
       */
     constructor(DMartAdmin _admin, DMartStoreFactory _storeFactory) public {
+        require(_admin != address(0) && _storeFactory != address(0), "Addresses must be non null");
         admin = DMartAdmin(_admin);
         storeFactory = DMartStoreFactory(_storeFactory);
     }

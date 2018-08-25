@@ -25,6 +25,7 @@ Shoppers in DecentraMart can interact with the individual `DMartStore`'s which c
  - Navigate to project root
  - `truffle install` -> Install EthPM dependencies
  - `truffle compile`
+ - `npm install chai`
  - ensure local network running `ganache-cli`
  - `truffle test`
 

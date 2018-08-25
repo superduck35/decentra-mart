@@ -47,6 +47,8 @@ contract DMartStore is ProxyData, Ownable {
       */
     function init(address _owner, string _name) public {
         require(!isInitialised, "Store must not be initialised");
+        require(_owner != address(0), "Owner cannot be empty address");
+        require(bytes(_name).length > 0, "Name must be non empty");
         owner = _owner;
         name = _name;
         isInitialised = true;

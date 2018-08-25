@@ -17,6 +17,7 @@ contract DMartStoreFactory {
       * @param _masterCopy Address of deployed master copy of Store contract
       */
     constructor(DMartStore _masterCopy) public {
+        require(_masterCopy != address(0), "address must be non null");
         masterCopy = _masterCopy;
     }
 
