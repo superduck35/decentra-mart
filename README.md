@@ -45,28 +45,28 @@ Shoppers in DecentraMart can interact with the individual `DMartStore`'s which c
  - To connect to Web3, your MetaMask must be connected to the correct network (as in the one in environment.ts... Rinkeby)
  - When you go to http://localhost:4200 you should see the front of the marketplace:
 
- ![Marketplace](https://github.com/alsco77/Decentra-Mart/screenshots/loaded.png)
+ ![Marketplace](https://github.com/alsco77/Decentra-Mart/blob/master/screenshots/loaded.png)
 
 
 ### Displaying your current metamask account
  - If your metamask is connected to the right network, you will see your address in the top right, next to your blockie
  - This adddress will update if you change your metamask account, or will show an error if you are not connected
- ![Address](https://github.com/alsco77/Decentra-Mart/screenshots/address.png)
+ ![Address](https://github.com/alsco77/Decentra-Mart/blob/master/screenshots/address.png)
 
 
 ### Sign transactions using metamask
  - Try to purchase a product from the store.. follow these steps:
  1. Visit my store :)
-  ![Step one](https://github.com/alsco77/Decentra-Mart/screenshots/buy-1.png)
+  ![Step one](https://github.com/alsco77/Decentra-Mart/blob/master/screenshots/buy-1.png)
  2. Select a product to buy and hit 'BUY PRODUCT'
-  ![Step two](https://github.com/alsco77/Decentra-Mart/screenshots/buy-2.png)
+  ![Step two](https://github.com/alsco77/Decentra-Mart/blob/master/screenshots/buy-2.png)
  3. Sign the metamask transaction that appears!
-  ![Step three](https://github.com/alsco77/Decentra-Mart/screenshots/buy-3.png)
+  ![Step three](https://github.com/alsco77/Decentra-Mart/blob/master/screenshots/buy-3.png)
  3. If you done it right, your transaction should now be 'submitted' - congrats!
-  ![Step four](https://github.com/alsco77/Decentra-Mart/screenshots/buy-4.png)
+  ![Step four](https://github.com/alsco77/Decentra-Mart/blob/master/screenshots/buy-4.png)
 
 ### Seeing reflections to the contract state
  - After you purchase a product you will get visual feedback to tell you that the transaction is processing (see image above)
  - When your transaction is processed, __the stock of the product will update to reflect the new contract state__
-   ![Purchase success](https://github.com/alsco77/Decentra-Mart/screenshots/buy-5.png)
+   ![Purchase success](https://github.com/alsco77/Decentra-Mart/blob/master/screenshots/buy-5.png)
 
