@@ -1,6 +1,6 @@
 Addresses of contracts deployed on the rinkeby testnet:
 
-- DMartAdmin: '0x6cc53fb60881acf87f664b28c15c7c23cb13e9ce'
-- DMartStore (Master copy): '0xfd72688ca67e6c8cf29932c354c10947a07be167'
-- DMartStoreFactory: '0x930244184048ece79fd27232065cee028ff71603'
-- DMartStoreManagement: '0x3695b4a9b17e103a0b126a1f581498e902e1905c'
+- DMartAdmin: '0xb43f98692d57aad79fb67e1d6f193f0e927847ed'
+- DMartStore (Master copy): '0x26f6442abe07f0010da33589d8f684b4d4a839b7'
+- DMartStoreFactory: '0x25aa8d57b2ffb37d7866282b22e5471b43642e8f'
+- DMartStoreManagement: '0xba80d6efbed3ca972a8c388e95d7a3e0839ed9e8'

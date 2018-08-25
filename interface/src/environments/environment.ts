@@ -2,7 +2,7 @@ export const environment = {
     production: false,
     targetNetwork: 'Rinkeby',
     contracts: {
-        admin: '0x6cc53fb60881acf87f664b28c15c7c23cb13e9ce',
-        storeManagement: '0x3695b4a9b17e103a0b126a1f581498e902e1905c'
+        admin: '0xb43f98692d57aad79fb67e1d6f193f0e927847ed',
+        storeManagement: '0xba80d6efbed3ca972a8c388e95d7a3e0839ed9e8'
     }
 };

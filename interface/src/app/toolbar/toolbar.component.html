@@ -8,8 +8,14 @@
     <button mat-button [routerLink]="['/manage-stores']" [disabled]="!user?.isStoreOwner">
       Manage stores
     </button>
-    <div *ngIf="walletConnected && user">
-      {{user.address}} -
+    <button mat-button [routerLink]="['']">
+      Marketplace
+    </button>
+  </div>
+  <div fxFlex></div>
+  <div fxLayout="row" fxLayoutAlign="space-around center">
+    <div *ngIf="walletConnected && user" fxLayout="row" fxLayoutAlign="center center" class="ethaddress">
+      {{user.address}}
       <img *ngIf="user.avatar" src="{{user.avatar}}" class="avatar" alt="avatar" title="avatar">
     </div>
     <div *ngIf="!walletConnected || !user">

@@ -16,6 +16,32 @@ export class User {
   isStoreOwner: boolean;
 }
 
+
+export class Store {
+  address: string;
+  avatar: string;
+  name: string;
+  open: boolean;
+  products: Array<Product> = [];
+
+  constructor(init?: Partial<Store>) {
+    Object.assign(this, init);
+  }
+}
+
+export class Product {
+  id: string;
+  name: string;
+  price: number;
+  stock: number;
+  active: boolean;
+
+  constructor(init?: Partial<Product>) {
+    Object.assign(this, init);
+  }
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -69,4 +95,65 @@ export class DMartEthService extends EthService {
     const seed = address.toLowerCase();
     return blockies.createDataURL({ seed });
   }
+
+
+  addStoreOwner(address: string): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const txObject = await this.adminContract.methods.addStoreOwner(address);
+        // const gasPrice = await this.getDefaultGasPriceGwei();
+        const txOptions = {
+          from: this.account.getValue(),
+          value: '0x0',
+          gasLimit: this.defaultGasParam,
+          gasPrice: '11000000000',
+          data: txObject.encodeABI(),
+        };
+        txObject.send(txOptions, (err, txHash) => this.resolveTransaction(err, txHash, resolve, reject));
+      } catch (e) {
+        reject();
+      }
+    });
+  }
+
+  async getAllStoreOwners(): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      const storeOwners = await this.adminContract.methods.getStoreOwners().call();
+      resolve(storeOwners);
+    });
+  }
+  getAllStores(): Promise<Store[]> {
+    return new Promise(async (resolve, reject) => {
+      const storeOwners: string[] = await this.getAllStoreOwners();
+      const stores: Store[] = [];
+      for (let i = 0; i < storeOwners.length; i++) {
+        const userStores = await this.storeManagementContract.methods.getStoresByOwner(storeOwners[i]).call();
+        for (let j = 0; j < userStores.length; j++) {
+          stores.push(await this.getStore(userStores[j]));
+        }
+      }
+      resolve(stores);
+    });
+  }
+
+  async getStore(address: string): Promise<Store> {
+    const storeContract = this.createContractInstance(storeAbi, address);
+    const avatar = this.getAvatar(address);
+    const name = await storeContract.methods.name().call();
+    const open = await storeContract.methods.open().call();
+    const products = await this.getProducts(address);
+    return new Store({ avatar, address, name, open, products });
+  }
+
+  async getProducts(storeAddress: string): Promise<Product[]> {
+    const storeContract = this.createContractInstance(storeAbi, storeAddress);
+    const numberOfProducts = await storeContract.methods.numberOfProducts().call();
+    const products: Product[] = [];
+    for (let i = 0; i < numberOfProducts; i++) {
+      const product = await storeContract.methods.getProduct(i).call();
+      products.push(new Product(product));
+    }
+    return products;
+  }
+
 }

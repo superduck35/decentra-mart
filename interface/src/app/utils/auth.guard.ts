@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { DMartEthService } from '../services/eth.service';
 
@@ -15,19 +16,20 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      console.log('hit auth guard');
+    console.log('hit auth guard');
     return new Promise(async (resolve, reject) => {
-      const user = await this.ethService.user$.toPromise();
-      if (!user) {
-        resolve(false);
-      }
-      if (next.data.requiresAdmin) {
-        resolve(user.isAdmin);
-      }
-      if (next.data.requiresStoreOwner) {
-        resolve(user.isStoreOwner);
-      }
-      resolve(true);
+      this.ethService.user$.pipe(take(1)).subscribe((user) => {
+        console.log('user: ' + JSON.stringify(user));
+        if (!user || user == null) {
+          resolve(false);
+        } else if (next.data.requiresAdmin) {
+          resolve(user.isAdmin);
+        } else if (next.data.requiresStoreOwner) {
+          resolve(user.isStoreOwner);
+        } else {
+          resolve(true);
+        }
+      });
     });
   }
 }

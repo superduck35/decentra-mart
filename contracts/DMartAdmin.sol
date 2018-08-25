@@ -73,6 +73,17 @@ contract DMartAdmin is RBAC, Pausable {
         return(true);
     } 
 
+    /** 
+      * @dev Get all store owners
+      * @return array of owner addresses
+      */
+    function getStoreOwners() public 
+    whenNotPaused
+    view
+    returns (address[]) {
+        return storeOwners;
+    } 
+
     /**
       * @dev Removes user as Store Owner
       * @param _storeOwner Address of store owner to revoke

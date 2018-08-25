@@ -1,3 +1,19 @@
-<p>
-  admin works!
-</p>
+<div fxFill fxLayout="row">
+  <div fxFlex>
+
+  </div>
+  <div fxFlex="40" fxLayout="column">
+    <div fxFlex="150px" fxLayoutAlign="center center">
+      <img [ngClass]="{'hidden': !success, 'animated bounceIn': success }" height="112px;" src="assets/img/tick_green.svg" />
+      <img [ngClass]="{'hidden': !error, 'animated bounceIn': error }" height="112px;" src="assets/img/red_cross.svg" />
+    </div>
+    <div fxLayout="column" fxLayoutAlign="space-between center">
+      <input type="text" placeholder="Admin address.." style="width: 400px;" [(ngModel)]="storeOwner" />
+      <br/>
+      <button mat-raised-button color="primary" [disabled]="processing" (click)="addStoreOwner(storeOwner)">
+        <img *ngIf="processing" src="assets/img/loader.svg" height="36px" alt="Loader"> Add store owner
+      </button>
+    </div>
+  </div>
+  <div fxFlex></div>
+</div>
