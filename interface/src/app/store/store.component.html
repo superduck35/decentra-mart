@@ -1,1 +1,44 @@
-{{address}}
+<div fxFill fxLayout="row">
+  <div fxFlex>
+
+  </div>
+  <div fxFlex="40" *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">
+    <img src="assets/img/loader.svg" height="112px" width="112px" alt="Loader">
+  </div>
+  <div fxFlex="40" class="margin-top" *ngIf="!loading && !store" fxLayout="column" fxLayoutAlign="start center">
+    Uh-oh... we couldn't load the store!
+  </div>
+  <div fxFlex="40" class="margin-top" *ngIf="!loading && store" fxLayout="column" fxLayoutAlign="start center">
+    <h2 fxLayout="row" fxLayoutAlign="center center">
+      <img src="{{store.avatar}}" class="avatar" alt="avatar" title="avatar"> &nbsp; {{store.name}}
+    </h2>
+    <hr>
+    <h3>Store is... {{store.open ? '' : 'NOT'}} open for business!</h3>
+    <hr>
+    <h3>Products</h3>
+    <p *ngIf="store.products.length <= 0">No products listed...</p>
+    <mat-card *ngFor="let product of store.products" class="default-card">
+      <mat-card-header class="default-card">
+        <mat-card-title>{{product.name}}</mat-card-title>
+        <mat-card-subtitle>Price: {{product.price || '0' | weiToEth}} ETH</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content fxLayout="column" fxLayoutAlign="start center">
+        Stock
+        <hr>
+        <span class="stock" [ngClass]="{'animated pulse': buyItem == product.Id && success}">{{product.stock}}</span>
+        <div *ngIf="buyItem == product.id" fxLayoutAlign="center center">
+          <img fxFlex="150px" [ngClass]="{'hidden': !success, 'animated bounceIn': success }" height="112px;" src="assets/img/tick_green.svg"
+          />
+          <img fxFlex="150px" [ngClass]="{'hidden': !error, 'animated bounceIn': error }" height="112px;" src="assets/img/red_cross.svg"
+          />
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="purchase(product)" [disabled]="processing || !store.open || product.stock <= 0 || !product.active">
+          <img *ngIf="processing && buyItem == product.id" src="assets/img/loader.svg" height="36px" alt="Loader"> BUY PRODUCT
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div fxFlex></div>
+</div>

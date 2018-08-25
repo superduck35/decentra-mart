@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit {
     try {
       const tx = await this.ethService.addStoreOwner(address);
       this.success = tx.status;
-      this.success = !tx.status;
+      this.error = !tx.status;
     } catch (e) {
       this.error = true;
     }

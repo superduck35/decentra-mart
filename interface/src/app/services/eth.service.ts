@@ -30,7 +30,7 @@ export class Store {
 }
 
 export class Product {
-  id: string;
+  id: number;
   name: string;
   price: number;
   stock: number;
@@ -151,9 +151,48 @@ export class DMartEthService extends EthService {
     const products: Product[] = [];
     for (let i = 0; i < numberOfProducts; i++) {
       const product = await storeContract.methods.getProduct(i).call();
-      products.push(new Product(product));
+      products.push(new Product({
+        id: product[0],
+        name: product[1],
+        price: product[2],
+        stock: product[3],
+        active: product[4]
+      }));
     }
     return products;
+  }
+
+
+  async getProduct(storeAddress: string, productId: number): Promise<Product> {
+    const storeContract = this.createContractInstance(storeAbi, storeAddress);
+    const product = await storeContract.methods.getProduct(productId).call();
+    return new Product({
+      id: product[0],
+      name: product[1],
+      price: product[2],
+      stock: product[3],
+      active: product[4]
+    });
+  }
+
+  async buyProduct(storeAddress: string, product: Product): Promise<any> {
+    const storeContract = this.createContractInstance(storeAbi, storeAddress);
+    return new Promise(async (resolve, reject) => {
+      try {
+        const txObject = await storeContract.methods.purchaseProduct(product.id);
+        // const gasPrice = await this.getDefaultGasPriceGwei();
+        const txOptions = {
+          from: this.account.getValue(),
+          value: product.price,
+          gasLimit: this.defaultGasParam,
+          gasPrice: '11000000000',
+          data: txObject.encodeABI(),
+        };
+        txObject.send(txOptions, (err, txHash) => this.resolveTransaction(err, txHash, resolve, reject));
+      } catch (e) {
+        reject();
+      }
+    });
   }
 
 }

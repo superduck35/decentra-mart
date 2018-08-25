@@ -5,7 +5,7 @@
     <button mat-button [routerLink]="['/admin']" [disabled]="!user?.isAdmin">
       Admin area
     </button>
-    <button mat-button [routerLink]="['/manage-stores']" [disabled]="!user?.isStoreOwner">
+    <button mat-button [routerLink]="['/manage-stores']" [disabled]="!user?.isStoreOwner || true">
       Manage stores
     </button>
     <button mat-button [routerLink]="['']">
@@ -22,16 +22,4 @@
       {{web3Status}}
     </div>
   </div>
-
-
-  <!-- <div *ngIf="walletConnected && !user" class="error-text" fxLayout="row" fxLayoutAlign="space-around center">
-    <span>Wrong network</span>
-
-    <img src="../../assets/q_mark.png" class="avatar" alt="avatar" title="avatar">
-  </div>
-  <div *ngIf="!walletConnected" class="error-text" fxLayout="row" fxLayoutAlign="space-around center">
-    <span>{{web3Status}}</span>
-
-    <img src="../../assets/q_mark.png" class="avatar" alt="avatar" title="avatar">
-  </div> -->
 </mat-toolbar>

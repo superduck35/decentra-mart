@@ -16,6 +16,7 @@ import { DMartEthService } from './services/eth.service';
 import { StoreComponent } from './store/store.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AuthGuard } from './utils/auth.guard';
+import { WeiToEthPipe } from './utils/wei-to-eth.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AuthGuard } from './utils/auth.guard';
     MarketplaceComponent,
     ToolbarComponent,
     AdminComponent,
-    StoreComponent
+    StoreComponent,
+    WeiToEthPipe
   ],
   imports: [
     BrowserModule,
