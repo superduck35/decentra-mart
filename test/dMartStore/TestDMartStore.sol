@@ -5,10 +5,12 @@ import "truffle/DeployedAddresses.sol";
 import "../../contracts/DMartStore.sol";
 
 contract TestDMartStore {
-  function testDmartStore() {
-    DMartStore store = DMartStore(DeployedAddresses.DMartStore());
 
-
-    Assert.equal(store.open(), true, "Store should be open initially");
-  }
+    /**
+     * Creating a standard store, check that it is open
+     */
+    function testDmartStore() public {
+        DMartStore store = DMartStore(DeployedAddresses.DMartStore());
+        Assert.equal(store.open(), true, "Store should be open initially");
+    }
 }

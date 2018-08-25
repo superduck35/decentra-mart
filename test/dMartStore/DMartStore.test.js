@@ -1,178 +1,93 @@
-// const { assertRevert } = require('../helpers/assertRevert');
-// const { ether } = require('../helpers/ether');
-// const { ethGetBalance } = require('../helpers/web3');
+const {
+  assertRevert
+} = require('../helpers/assertRevert');
 const DMartStore = artifacts.require("DMartStore");
 
-// const BigNumber = web3.BigNumber;
 
-// const should = require('chai')
-//   .use(require('chai-bignumber')(BigNumber))
-//   .should();
-
+/**
+ * Testing the core store contract
+ */
 contract("DMartStore", accounts => {
   const firstAccount = accounts[0];
+  const storeOwner = accounts[0];
+  const secondAccount = accounts[1];
+  const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
+  /**
+   * Store creation and initialisation
+   */
   describe('basic store creation', function () {
     it("should set the correct owner", async () => {
       let store = await DMartStore.deployed();
       assert.equal(await store.owner(), firstAccount);
 
     });
+    /**
+     * Ensuring initialisation can only happen once
+     */
+    it("cannot initialise twice", async () => {
+      let store = await DMartStore.deployed();
+      assertRevert(store.init(firstAccount, "tester"));
+    });
+  });
+
+  /**
+   * Product is created and added to storage correctly
+   */
+  describe('adding a product', function () {
+    it("should add product to stock list", async () => {
+      let store = await DMartStore.deployed();
+      await store.addNewProduct("product", web3.toWei(0.1, 'ether'), 50);
+      const newProduct = await store.getProduct(0);
+      assert.equal(newProduct[1], "product");
+    });
+  });
+
+  /**
+   * Product can be purchased
+   */
+  describe('purchasing a product', function () {
+    beforeEach(async () => {
+      this.store = await DMartStore.deployed();
+      if (await this.store.numberOfProducts() == 0) {
+        await this.store.addNewProduct("product", web3.toWei(0.1, 'ether'), 50);
+      }
+    });
+
+    /**
+     * Product stock decreases
+     */
+    it("should decrease the stock amount", async () => {
+      const productBefore = await this.store.getProduct(0);
+      await this.store.purchaseProduct(0, {
+        from: secondAccount,
+        value: web3.toWei(0.1, 'ether')
+      });
+      const productAfter = await this.store.getProduct(0);
+      assert.equal(parseInt(productBefore[3]), parseInt(productAfter[3]) + 1);
+    });
+
+    /**
+     * Customer doesn't send enough Ether
+     */
+    it("should error if missing ether", async () => {
+      assertRevert(this.store.purchaseProduct(0, {
+        from: secondAccount,
+        value: web3.toWei(0.05, 'ether')
+      }));
+    });
+
+    /**
+     * Shop owner balance increases
+     */
+    it("should credit the shop balance", async () => {
+      const balanceBefore = await web3.eth.getBalance(this.store.address);
+      await this.store.purchaseProduct(0, {
+        from: secondAccount,
+        value: web3.toWei(0.1, 'ether')
+      });
+      const balanceAfter = await web3.eth.getBalance(this.store.address);
+      assert.equal(parseInt(balanceBefore) + parseInt(web3.toWei(0.1, 'ether')), parseInt(balanceAfter));
+    });
   });
 })
-// const Crowdsale = artifacts.require('Crowdsale');
-// const SimpleToken = artifacts.require('SimpleToken');
-
-// contract('Crowdsale', function ([_, investor, wallet, purchaser]) {
-//   const rate = new BigNumber(1);
-//   const value = ether(42);
-//   const tokenSupply = new BigNumber('1e22');
-//   const expectedTokenAmount = rate.mul(value);
-//   const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
-
-//   it('requires a non-null token', async function () {
-//     await assertRevert(
-//       Crowdsale.new(rate, wallet, ZERO_ADDRESS)
-//     );
-//   });
-
-//   context('with token', async function () {
-//     beforeEach(async function () {
-//       this.token = await SimpleToken.new();
-//     });
-
-//     it('requires a non-zero rate', async function () {
-//       await assertRevert(
-//         Crowdsale.new(0, wallet, this.token.address)
-//       );
-//     });
-
-//     it('requires a non-null wallet', async function () {
-//       await assertRevert(
-//         Crowdsale.new(rate, ZERO_ADDRESS, this.token.address)
-//       );
-//     });
-
-//     context('once deployed', async function () {
-//       beforeEach(async function () {
-//         this.crowdsale = await Crowdsale.new(rate, wallet, this.token.address);
-//         await this.token.transfer(this.crowdsale.address, tokenSupply);
-//       });
-
-//       describe('accepting payments', function () {
-//         describe('bare payments', function () {
-//           it('should accept payments', async function () {
-//             await this.crowdsale.send(value, {
-//               from: purchaser
-//             });
-//           });
-
-//           it('reverts on zero-valued payments', async function () {
-//             await assertRevert(
-//               this.crowdsale.send(0, {
-//                 from: purchaser
-//               })
-//             );
-//           });
-//         });
-
-//         describe('buyTokens', function () {
-//           it('should accept payments', async function () {
-//             await this.crowdsale.buyTokens(investor, {
-//               value: value,
-//               from: purchaser
-//             });
-//           });
-
-//           it('reverts on zero-valued payments', async function () {
-//             await assertRevert(
-//               this.crowdsale.buyTokens(investor, {
-//                 value: 0,
-//                 from: purchaser
-//               })
-//             );
-//           });
-
-//           it('requires a non-null beneficiary', async function () {
-//             await assertRevert(
-//               this.crowdsale.buyTokens(ZERO_ADDRESS, {
-//                 value: value,
-//                 from: purchaser
-//               })
-//             );
-//           });
-//         });
-//       });
-
-//       describe('high-level purchase', function () {
-//         it('should log purchase', async function () {
-//           const {
-//             logs
-//           } = await this.crowdsale.sendTransaction({
-//             value: value,
-//             from: investor
-//           });
-//           const event = logs.find(e => e.event === 'TokenPurchase');
-//           should.exist(event);
-//           event.args.purchaser.should.eq(investor);
-//           event.args.beneficiary.should.eq(investor);
-//           event.args.value.should.be.bignumber.equal(value);
-//           event.args.amount.should.be.bignumber.equal(expectedTokenAmount);
-//         });
-
-//         it('should assign tokens to sender', async function () {
-//           await this.crowdsale.sendTransaction({
-//             value: value,
-//             from: investor
-//           });
-//           (await this.token.balanceOf(investor)).should.be.bignumber.equal(expectedTokenAmount);
-//         });
-
-//         it('should forward funds to wallet', async function () {
-//           const pre = await ethGetBalance(wallet);
-//           await this.crowdsale.sendTransaction({
-//             value,
-//             from: investor
-//           });
-//           const post = await ethGetBalance(wallet);
-//           post.minus(pre).should.be.bignumber.equal(value);
-//         });
-//       });
-
-//       describe('low-level purchase', function () {
-//         it('should log purchase', async function () {
-//           const {
-//             logs
-//           } = await this.crowdsale.buyTokens(investor, {
-//             value: value,
-//             from: purchaser
-//           });
-//           const event = logs.find(e => e.event === 'TokenPurchase');
-//           should.exist(event);
-//           event.args.purchaser.should.eq(purchaser);
-//           event.args.beneficiary.should.eq(investor);
-//           event.args.value.should.be.bignumber.equal(value);
-//           event.args.amount.should.be.bignumber.equal(expectedTokenAmount);
-//         });
-
-//         it('should assign tokens to beneficiary', async function () {
-//           await this.crowdsale.buyTokens(investor, {
-//             value,
-//             from: purchaser
-//           });
-//           (await this.token.balanceOf(investor)).should.be.bignumber.equal(expectedTokenAmount);
-//         });
-
-//         it('should forward funds to wallet', async function () {
-//           const pre = await ethGetBalance(wallet);
-//           await this.crowdsale.buyTokens(investor, {
-//             value,
-//             from: purchaser
-//           });
-//           const post = await ethGetBalance(wallet);
-//           post.minus(pre).should.be.bignumber.equal(value);
-//         });
-//       });
-//     });
-//   });
-// });

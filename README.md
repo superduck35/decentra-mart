@@ -15,7 +15,13 @@ a lot of overhead and allowing store owners to own and manage multiple stores ea
 Shoppers in DecentraMart can interact with the individual `DMartStore`'s which contain stock lists updated by the owners.
 
 
+## First
+ - Globally [Install node](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) 
+ - Globally install `npm` (v6.4.0) (`sudo npm install -g npm`) globally on your machine via package manager
+
+
 ## Compile and deploy contracts
+ - `npm install truffle-hdwallet-provider`
  - `truffle install` -> Install EthPM dependencies
  - `ganache-cli -p 8545` -> Run ganache instance on port 8545
  - `truffle migrate --network ganache` (may need node > 9)
@@ -23,20 +29,23 @@ Shoppers in DecentraMart can interact with the individual `DMartStore`'s which c
 
  ## Testing
  - Navigate to project root
+ - `npm install truffle-hdwallet-provider`
+ - `npm install chai`
  - `truffle install` -> Install EthPM dependencies
  - `truffle compile`
- - `npm install chai`
  - ensure local network running `ganache-cli`
  - `truffle test`
 
 
 ## Run local dev server
- - Install node && npm on your machine
  - `cd interface`
  - `npm install`
- - Configure `environment.ts` to your chosen network & update contract addresses.. or use default (Rinkeby)
+ - Use default settings (Rinkeby) or change `environment.ts` to your chosen network & update contract addresses..
  - `npm run start`
  - visit http://localhost:4200
+
+ ### Install bugs
+  - If you are getting some errors you are probably using the wrong version of `npm` (should be >= 6.4)
 
 
 
@@ -49,13 +58,13 @@ Shoppers in DecentraMart can interact with the individual `DMartStore`'s which c
  ![Marketplace](https://github.com/alsco77/Decentra-Mart/blob/master/screenshots/loaded.png)
 
 
-### Displaying your current metamask account
+## Displaying your current metamask account
  - If your metamask is connected to the right network, you will see your address in the top right, next to your blockie
  - This adddress will update if you change your metamask account, or will show an error if you are not connected
  ![Address](https://github.com/alsco77/Decentra-Mart/blob/master/screenshots/address.png)
 
 
-### Sign transactions using metamask
+## Sign transactions using metamask
  - Try to purchase a product from the store.. follow these steps:
  1. Visit my store :)
   ![Step one](https://github.com/alsco77/Decentra-Mart/blob/master/screenshots/buy-1.png)
@@ -66,7 +75,7 @@ Shoppers in DecentraMart can interact with the individual `DMartStore`'s which c
  3. If you done it right, your transaction should now be 'submitted' - congrats!
   ![Step four](https://github.com/alsco77/Decentra-Mart/blob/master/screenshots/buy-4.png)
 
-### Seeing reflections to the contract state
+## Seeing reflections to the contract state
  - After you purchase a product you will get visual feedback to tell you that the transaction is processing (see image above)
  - When your transaction is processed, __the stock of the product will update to reflect the new contract state__
    ![Purchase success](https://github.com/alsco77/Decentra-Mart/blob/master/screenshots/buy-5.png)
