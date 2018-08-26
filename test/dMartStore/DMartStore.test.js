@@ -14,7 +14,7 @@ contract("DMartStore", accounts => {
   const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
   /**
-   * Store creation and initialisation
+   * Run through a store being created and ensure that it works as intended
    */
   describe('basic store creation', function () {
     it("should set the correct owner", async () => {
@@ -23,7 +23,8 @@ contract("DMartStore", accounts => {
 
     });
     /**
-     * Ensuring initialisation can only happen once
+     * Checking that the initialisation of the store can only happen once
+     * Since this is a proxied contract, we put the logic here rather than in the constructor
      */
     it("cannot initialise twice", async () => {
       let store = await DMartStore.deployed();
@@ -32,7 +33,8 @@ contract("DMartStore", accounts => {
   });
 
   /**
-   * Product is created and added to storage correctly
+   * Ensuring that once the product is created, it gets successfully added
+   * to the data structure for further access
    */
   describe('adding a product', function () {
     it("should add product to stock list", async () => {
@@ -44,7 +46,8 @@ contract("DMartStore", accounts => {
   });
 
   /**
-   * Product can be purchased
+   * A product that has been added to the store can be purchased by customers
+   * Here we set up pre-test state to ensure the product is there and has stock
    */
   describe('purchasing a product', function () {
     beforeEach(async () => {
@@ -55,7 +58,8 @@ contract("DMartStore", accounts => {
     });
 
     /**
-     * Product stock decreases
+     * A purchase makes the stock of the product decrease in the store
+     * Checking the stock before and after the purchase
      */
     it("should decrease the stock amount", async () => {
       const productBefore = await this.store.getProduct(0);
@@ -68,7 +72,8 @@ contract("DMartStore", accounts => {
     });
 
     /**
-     * Customer doesn't send enough Ether
+     * The purchase of the product shouldn't go through if there is not enough 
+     * ether in the payload
      */
     it("should error if missing ether", async () => {
       assertRevert(this.store.purchaseProduct(0, {
@@ -78,7 +83,8 @@ contract("DMartStore", accounts => {
     });
 
     /**
-     * Shop owner balance increases
+     * Ensure that the Ether being sent in the transaction gets deposited into the 
+     * stores balance, so that the owner can withdraw it later
      */
     it("should credit the shop balance", async () => {
       const balanceBefore = await web3.eth.getBalance(this.store.address);

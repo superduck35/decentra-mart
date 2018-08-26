@@ -15,25 +15,20 @@ a lot of overhead and allowing store owners to own and manage multiple stores ea
 Shoppers in DecentraMart can interact with the individual `DMartStore`'s which contain stock lists updated by the owners.
 
 
-## First
+<!-- ## First
  - Globally [Install node](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) 
- - Globally install `npm` (v6.4.0) (`sudo npm install -g npm`) globally on your machine via package manager
+ - Globally install `npm` (v6.4.0) (`sudo npm install -g npm`) globally on your machine via package manager -->
 
 
 ## Compile and deploy contracts
- - `npm install truffle-hdwallet-provider`
- - `truffle install` -> Install EthPM dependencies
- - `ganache-cli -p 8545` -> Run ganache instance on port 8545
- - `truffle migrate --network ganache` (may need node > 9)
-
+ - `npm install:tr` -> Install all node and EthPM dependencies
+ - in separate shell: `ganache-cli -p 8545` -> Run ganache instance on port 8545
+ - `truffle migrate --network ganache`
 
  ## Testing
- - Navigate to project root
- - `npm install truffle-hdwallet-provider`
- - `npm install chai`
- - `truffle install` -> Install EthPM dependencies
+ - `npm install:tr` -> Install all node and EthPM dependencies
+ - in separate shell: `ganache-cli -p 8545` -> Run ganache instance on port 8545
  - `truffle compile`
- - ensure local network running `ganache-cli`
  - `truffle test`
 
 
@@ -41,7 +36,7 @@ Shoppers in DecentraMart can interact with the individual `DMartStore`'s which c
  - `cd interface`
  - `npm install`
  - Use default settings (Rinkeby) or change `environment.ts` to your chosen network & update contract addresses..
- - `npm run start`
+ - `npm start`
  - visit http://localhost:4200
 
  ### Install bugs
