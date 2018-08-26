@@ -6,10 +6,6 @@
     "npm": "6.4.0"
   },
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
     "install:tr": "npm install && npm install -g truffle ganache-cli && truffle install"
   },
   "private": true,

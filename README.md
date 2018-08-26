@@ -21,15 +21,17 @@ Shoppers in DecentraMart can interact with the individual `DMartStore`'s which c
 
 
 ## Compile and deploy contracts
- - `npm install:tr` -> Install all node and EthPM dependencies
+ - `<sudo> npm run install:tr` -> Install all node and EthPM dependencies
  - in separate shell: `ganache-cli -p 8545` -> Run ganache instance on port 8545
+ - `truffle compile`
  - `truffle migrate --network ganache`
 
  ## Testing
- - `npm install:tr` -> Install all node and EthPM dependencies
+ - `<sudo> npm run install:tr` -> Install all node and EthPM dependencies
  - in separate shell: `ganache-cli -p 8545` -> Run ganache instance on port 8545
  - `truffle compile`
  - `truffle test`
+
 
 
 ## Run local dev server
