@@ -15,19 +15,15 @@ a lot of overhead and allowing store owners to own and manage multiple stores ea
 Shoppers in DecentraMart can interact with the individual `DMartStore`'s which contain stock lists updated by the owners.
 
 
-<!-- ## First
- - Globally [Install node](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) 
- - Globally install `npm` (v6.4.0) (`sudo npm install -g npm`) globally on your machine via package manager -->
-
 
 ## Compile and deploy contracts
- - `<sudo> npm run install:tr` -> Install all node and EthPM dependencies
+ - `npm run install:tr` -> Install all node and EthPM dependencies
  - in separate shell: `ganache-cli -p 8545` -> Run ganache instance on port 8545
  - `truffle compile`
  - `truffle migrate --network ganache`
 
  ## Testing
- - `<sudo> npm run install:tr` -> Install all node and EthPM dependencies
+ - `npm run install:tr` -> Install all node and EthPM dependencies
  - in separate shell: `ganache-cli -p 8545` -> Run ganache instance on port 8545
  - `truffle compile`
  - `truffle test`

@@ -6,7 +6,7 @@
     "npm": "6.4.0"
   },
   "scripts": {
-    "install:tr": "npm install && npm install -g truffle ganache-cli && truffle install"
+    "install:tr": "npm install && truffle install"
   },
   "private": true,
   "dependencies": {},
